@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garage Door Frequency Converter</title>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79LTQ8LLML"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-79LTQ8LLML');
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .intro {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .converter-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .compatibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .compatibility-table th,
+        .compatibility-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .compatibility-table th {
+            background: #f8f9fa;
+        }
+
+        .accordion {
+            margin: 20px 0;
+        }
+
+        .accordion-item {
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        .accordion-header {
+            background: #f8f9fa;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .accordion-content {
+            padding: 15px;
+            display: none;
+        }
+
+        .accordion-content.active {
+            display: block;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        input {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f4ff;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .premium-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+        }
+
+        .troubleshooting-tips {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="intro">
+            <h1>Garage Door Frequency Converter</h1>
+            <p>Convert your garage door remote frequency for compatibility with newer systems. Specializing in Chamberlain, LiftMaster, and Craftsman remotes from 1995-2015.</p>
+            <p><strong>How it works:</strong> Enter your remote's current frequency (found on the remote's back or in the manual) to get the compatible conversion frequency.</p>
+        </div>
+
+        <div class="converter-box">
+            <h2>Frequency Converter</h2>
+            <div class="input-group">
+                <label for="frequency-input">Enter your remote's frequency (MHz):</label><br>
+                <input type="number" id="frequency-input" placeholder="e.g. 390" step="0.1" min="300" max="400">
+                <button onclick="convertFrequency()">Convert</button>
+            </div>
+            <div id="result" class="result"></div>
+        </div>
+
+        <h2>Brand Compatibility</h2>
+        <table class="compatibility-table">
+            <tr>
+                <th>Brand</th>
+                <th>Models</th>
+                <th>Original Frequency (MHz)</th>
+            </tr>
+            <tr>
+                <td>Chamberlain</td>
+                <td>953CB, 956CB, 956D, 953D</td>
+                <td>390</td>
+            </tr>
+            <tr>
+                <td>LiftMaster</td>
+                <td>371LM, 373LM, 375LM, 375UT</td>
+                <td>390</td>
+            </tr>
+            <tr>
+                <td>Craftsman</td>
+                <td>139.53753, 139.53773, 139.53879</td>
+                <td>390</td>
+            </tr>
+        </table>
+
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion('faq')">
+                    Frequently Asked Questions
+                </div>
+                <div id="faq" class="accordion-content">
+                    <h3>Common Questions</h3>
+                    <p><strong>Q: How do I find my remote's frequency?</strong><br>
+                    A: Look for a sticker on the back of your remote or check your user manual. Common frequencies are 300, 315, 318, and 390 MHz.</p>
+
+                    <p><strong>Q: Will this work with my garage door opener?</strong><br>
+                    A: This tool is specifically designed for Chamberlain, LiftMaster, and Craftsman models from 1995-2015. Check the compatibility table above.</p>
+
+                    <p><strong>Q: Is the conversion permanent?</strong><br>
+                    A: No, this doesn't modify your remote. It helps you find the compatible frequency for programming.</p>
+
+                    <p><strong>Q: Do I need special tools?</strong><br>
+                    A: No special tools required. Just your remote and this converter.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion('troubleshooting')">
+                    Troubleshooting Tips
+                </div>
+                <div id="troubleshooting" class="accordion-content">
+                    <div class="troubleshooting-tips">
+                        <h3>Common Issues and Solutions</h3>
+                        <ol>
+                            <li><strong>Remote not responding after conversion:</strong>
+                                <ul>
+                                    <li>Verify the original frequency matches your remote</li>
+                                    <li>Check remote battery</li>
+                                    <li>Ensure proper programming sequence</li>
+                                </ul>
+                            </li>
+                            <li><strong>Inconsistent operation:</strong>
+                                <ul>
+                                    <li>Clear any metal objects between remote and receiver</li>
+                                    <li>Try reprogramming the remote</li>
+                                    <li>Check for interference from nearby devices</li>
+                                </ul>
+                            </li>
+                            <li><strong>Programming difficulties:</strong>
+                                <ul>
+                                    <li>Hold remote closer to the garage door opener</li>
+                                    <li>Follow programming sequence exactly</li>
+                                    <li>Try fresh batteries</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="premium-box">
+            <h2>Premium Features - One-Time Purchase</h2>
+            <p>Unlock all advanced features forever with a single purchase:</p>
+            <ul class="feature-list">
+                <li>Universal compatibility check for all major brands</li>
+                <li>Batch conversion for multiple remotes</li>
+                <li>Priority technical support via email</li>
+                <li>Detailed frequency analysis and recommendations</li>
+                <li>Access to professional programming guides</li>
+                <li>Commercial use license</li>
+            </ul>
+            <p><strong>✨ Special Offer: One-time payment of just $4.99 for lifetime access</strong></p>
+            <button onclick="showPremiumOptions()" style="margin-top: 15px;">Get Premium Access ($4.99)</button>
+        </div>
+    </div>
+
+    <script>
+        function convertFrequency() {
+            const input = document.getElementById('frequency-input').value;
+            const result = document.getElementById('result');
+            
+            if (input >= 300 && input <= 400) {
+                const convertedFreq = (input * 1.5).toFixed(1);
+                result.innerHTML = `
+                    <strong>Original Frequency:</strong> ${input} MHz<br>
+                    <strong>Converted Frequency:</strong> ${convertedFreq} MHz<br>
+                    <small>This conversion is compatible with most modern garage door systems.</small>
+                `;
+                result.style.display = 'block';
+                
+                // Track successful conversion in Google Analytics
+                gtag('event', 'frequency_conversion', {
+                    'event_category': 'tool_usage',
+                    'event_label': 'successful_conversion',
+                    'original_frequency': input,
+                    'converted_frequency': convertedFreq
+                });
+            } else {
+                result.innerHTML = 'Please enter a valid frequency between 300-400 MHz.';
+                result.style.display = 'block';
+                
+                // Track invalid input in Google Analytics
+                gtag('event', 'frequency_conversion_error', {
+                    'event_category': 'tool_usage',
+                    'event_label': 'invalid_input',
+                    'input_value': input
+                });
+            }
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const allContents = document.getElementsByClassName('accordion-content');
+            
+            // Close all other accordion items
+            for (let item of allContents) {
+                if (item.id !== id) {
+                    item.classList.remove('active');
+                }
+            }
+            
+            // Toggle the clicked item
+            content.classList.toggle('active');
+            
+            // Track accordion usage in Google Analytics
+            gtag('event', 'accordion_toggle', {
+                'event_category': 'engagement',
+                'event_label': id
+            });
+        }
+
+        function showPremiumOptions() {
+            alert('Get lifetime premium access for just $4.99! Contact us at support@example.com to upgrade.');
+            // Track premium button click in Google Analytics
+            gtag('event', 'premium_button_click', {
+                'event_category': 'engagement',
+                'event_label': 'premium_access',
+                'price': '4.99'
+            });
+        }
+    </script>
+</body>
+</html>
