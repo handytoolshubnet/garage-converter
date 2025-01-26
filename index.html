@@ -512,7 +512,26 @@
                 }
             }
         }
-
+function initializeAdvancedChecker() {
+    const brandSelect = document.getElementById('brandSelect');
+    
+    // Reset and populate brand select
+    brandSelect.innerHTML = '<option value="">Select your brand</option>';
+    
+    // Add options for each brand
+    Object.keys(universalCompatibility).forEach(brand => {
+        const option = document.createElement('option');
+        option.value = brand;
+        option.textContent = brand.charAt(0).toUpperCase() + brand.slice(1);
+        brandSelect.appendChild(option);
+    });
+    
+    // Reset other elements
+    const modelSelect = document.getElementById('modelSelect');
+    const freqInput = document.getElementById('advFreqInput');
+    modelSelect.style.display = 'none';
+    freqInput.style.display = 'none';
+}
         // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             initializeAccordions();
