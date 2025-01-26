@@ -389,7 +389,100 @@
     <script>
         // Universal Compatibility Data
         const universalCompatibility = {
-              
+            const universalCompatibility = {
+    genie: {
+        models: ['GIT-1', 'GIT-2', 'GIT-3', 'GM-3T', 'GITR-3', 'G3T-R'],
+        frequencies: [288, 315, 390],
+        conversion: (freq) => freq === 390 ? 315 : 390,
+        notes: 'Compatible with most Genie models from 1995-2015'
+    },
+    marantec: {
+        models: ['M13-631', 'M13-632', 'Digital 302', 'Digital 313', 'M3-2312'],
+        frequencies: [315, 390],
+        conversion: (freq) => freq === 390 ? 315 : 390,
+        notes: 'Works with Marantec Security+ systems'
+    },
+    hormann: {
+        models: ['HS4', 'HSM4', 'HSE2', 'HSD2', 'HSP4'],
+        frequencies: [315, 390],
+        conversion: (freq) => freq === 390 ? 315 : 390,
+        notes: 'European models may require additional programming'
+    },
+    somfy: {
+        models: ['KEYTIS-NS2', 'KEYTIS-NS4', 'K-RTS', 'Telis RTS', 'Situo RTS'],
+        frequencies: [315, 433],
+        conversion: (freq) => freq === 433 ? 315 : 433,
+        notes: 'Primarily for RTS systems'
+    },
+    linear: {
+        models: ['MCT-11', 'ACT-34B', 'DNT00090', 'MT-1B', 'LS-5'],
+        frequencies: [310, 390],
+        conversion: (freq) => freq === 390 ? 310 : 390,
+        notes: 'Compatible with MegaCode systems'
+    },
+    stanley: {
+        models: ['1050', '370-3314', '370-3850', 'SecureCode'],
+        frequencies: [310, 390],
+        conversion: (freq) => freq === 390 ? 310 : 390,
+        notes: 'Works with most Stanley garage door systems'
+    },
+    overheaddoor: {
+        models: ['OCDTR-3', 'OKR-1', 'OCDT', 'CodeDodger'],
+        frequencies: [315, 390],
+        conversion: (freq) => freq === 390 ? 315 : 390,
+        notes: 'Compatible with CodeDodger technology'
+    },
+    allstar: {
+        models: ['9921T', '9931T', 'AllStar MVP', 'QuickCode'],
+        frequencies: [318, 390],
+        conversion: (freq) => freq === 390 ? 318 : 390,
+        notes: 'Works with MVP and QuickCode systems'
+    },
+    multicode: {
+        models: ['4120', '4140', '3089', '3070'],
+        frequencies: [300, 390],
+        conversion: (freq) => freq === 390 ? 300 : 390,
+        notes: 'Compatible with Linear MultiCode systems'
+    },
+    waynedalton: {
+        models: ['309884', '327310', '309884', 'WD-327310'],
+        frequencies: [315, 390],
+        conversion: (freq) => freq === 390 ? 315 : 390,
+        notes: 'Compatible with most Wayne Dalton systems after 1999'
+    },
+    guardian: {
+        models: ['GDR-333', 'GDT-3', 'GDP-3'],
+        frequencies: [315, 390],
+        conversion: (freq) => freq === 390 ? 315 : 390,
+        notes: 'Works with Guardian opener systems'
+    },
+    doorking: {
+        models: ['8067-080', '8067-085', 'MicroPLUS'],
+        frequencies: [318, 390],
+        conversion: (freq) => freq === 390 ? 318 : 390,
+        notes: 'Compatible with MicroPLUS technology'
+    },
+    chamberlain: {
+        models: ['956EV', '953EV', '950ESTD', 'Security+'],
+        frequencies: [315, 390],
+        conversion: (freq) => freq === 390 ? 315 : 390,
+        notes: 'Works with Security+ and Security+ 2.0 systems'
+    },
+    liftmaster: {
+        models: ['371LM', '373LM', '375LM', 'Security+'],
+        frequencies: [315, 390],
+        conversion: (freq) => freq === 390 ? 315 : 390,
+        notes: 'Compatible with most LiftMaster systems since 1993'
+    },
+    craftsman: {
+        models: ['139.53753', '139.53773', '139.53879'],
+        frequencies: [315, 390],
+        conversion: (freq) => freq === 390 ? 315 : 390,
+        notes: 'Works with Craftsman garage door openers'
+    }
+};
+        };
+
         function convertFrequency() {
             const input = document.getElementById('frequencyInput');
             const result = document.getElementById('result');
