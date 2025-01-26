@@ -30,106 +30,17 @@
         .converter-section {
             margin: 20px 0;
             padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-        }
-
-        input, select, button {
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Table styles */
-        .compatibility-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        .compatibility-table th,
-        .compatibility-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-
-        .compatibility-table th {
-            background-color: #f8f9fa;
-        }
-
-        /* Premium content styles */
-        .premium-locked {
-            position: relative;
-            filter: blur(4px);
-            pointer-events: none;
-        }
-
-        .premium-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255,255,255,0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            z-index: 1000;
-        }
-
-        /* Accordion styles */
-        .accordion-header {
-            background-color: #f8f9fa;
-            padding: 15px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        .accordion-content {
-            display: none;
-            padding: 15px;
-        }
-
-        .accordion-content.active {
-            display: block;
-        }
-
-        /* Tool card styles */
-        .tool-card {
-            background-color: white;
-            padding: 20px;
-            margin: 10px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-    </style>
-</head>
 <body>
     <div class="container">
         <h1>Garage Door Frequency Converter</h1>
         <p>Convert your garage door remote frequency for compatibility with newer systems. Specializing in Chamberlain, LiftMaster, and Craftsman remotes from 1995-2015.</p>
         
+        <!-- Basic Converter Section -->
         <div class="tool-card">
             <h2>How it works:</h2>
             <p>Enter your remote's current frequency (found on the remote's back or in the manual) to get the compatible conversion frequency.</p>
         </div>
 
-        <!-- Basic Frequency Converter -->
         <div class="tool-card">
             <h2>Frequency Converter</h2>
             <div class="converter-section">
@@ -139,7 +50,7 @@
             </div>
         </div>
 
-        <!-- Brand Compatibility -->
+        <!-- Brand Compatibility Section -->
         <div class="tool-card">
             <h2>Brand Compatibility</h2>
             <table class="compatibility-table">
@@ -170,7 +81,7 @@
             </table>
         </div>
 
-        <!-- Supported Brands -->
+        <!-- Supported Brands Section -->
         <div class="tool-card">
             <h2>Supported Brands</h2>
             <div class="free-version">
@@ -202,13 +113,12 @@
                 <p>🔓 Unlock all brands with premium access</p>
             </div>
         </div>
-
-        <!-- FAQ Section -->
+<!-- FAQ Section -->
         <div class="tool-card">
             <h2>Frequently Asked Questions</h2>
             
             <div class="accordion">
-                <div class="accordion-header">Common Questions</div>
+                <div class="accordion-header" onclick="toggleAccordion(this)">Common Questions</div>
                 <div class="accordion-content">
                     <h4>Q: How do I find my remote's frequency?</h4>
                     <p>A: Look for a sticker on the back of your remote or check your user manual. Common frequencies are 300, 315, 318, and 390 MHz.</p>
@@ -225,7 +135,7 @@
             </div>
 
             <div class="accordion">
-                <div class="accordion-header">Troubleshooting Tips</div>
+                <div class="accordion-header" onclick="toggleAccordion(this)">Troubleshooting Tips</div>
                 <div class="accordion-content">
                     <h4>Remote not responding after conversion:</h4>
                     <ul>
@@ -251,224 +161,182 @@
             </div>
         </div>
 
-        <!-- Premium Features Section -->
+        <!-- Premium Content Section -->
         <div id="premiumContent" class="premium-locked">
-            <!-- Premium Tools -->
-            <div class="premium-tools">
-                <div class="tool-card">
-                    <h2>📘 Step-by-Step Guide</h2>
-                    <p>Complete guide with pictures and detailed instructions</p>
-                    <button class="download-btn">Download PDF Guide</button>
-                </div>
+            <div class="tool-card">
+                <h2>📘 Step-by-Step Guide</h2>
+                <p>Complete guide with pictures and detailed instructions</p>
+                <button onclick="handleDownload('guide')" class="download-btn">Download PDF Guide</button>
+            </div>
 
-                <div class="tool-card">
-                    <h2>✅ Can't Fail Checklist</h2>
-                    <p>Print this checklist and follow each step</p>
-                    <button class="download-btn">Download Checklist</button>
-                </div>
+            <div class="tool-card">
+                <h2>✅ Can't Fail Checklist</h2>
+                <p>Print this checklist and follow each step</p>
+                <button onclick="handleDownload('checklist')" class="download-btn">Download Checklist</button>
+            </div>
 
-                <div class="tool-card">
-                    <h2>🔍 Advanced Compatibility Checker</h2>
-                    <div id="advancedChecker">
-                        <select id="compatibilitySelect">
-                            <option value="">Select your brand</option>
-                        </select>
-                        
-                        <select id="modelSelect" style="display: none;">
-                            <option value="">Select your model</option>
-                        </select>
-                        
-                        <input type="number" id="freqInput" style="display: none;" placeholder="Enter frequency (MHz)">
-                        
-                        <div id="compatibilityResult"></div>
-                    </div>
+            <div class="tool-card">
+                <h2>🔍 Advanced Compatibility Checker</h2>
+                <div id="advancedChecker">
+                    <select id="brandSelect" onchange="handleBrandSelect()">
+                        <option value="">Select your brand</option>
+                    </select>
+                    
+                    <select id="modelSelect" style="display: none;" onchange="handleModelSelect()">
+                        <option value="">Select your model</option>
+                    </select>
+                    
+                    <input type="number" id="advFreqInput" style="display: none;" 
+                           placeholder="Enter frequency (MHz)" onchange="handleFrequencyInput()">
+                    
+                    <div id="advCompatibilityResult"></div>
                 </div>
             </div>
         </div>
 
         <!-- Premium Overlay -->
         <div id="premiumOverlay" class="premium-overlay">
-            <h2>Premium Features - One-Time Purchase</h2>
-            <p>Unlock all advanced features forever:</p>
-            <ul>
-                <li>Step-by-Step PDF Guide</li>
-                <li>Printable Can't Fail Checklist</li>
-                <li>Universal Compatibility Checker</li>
-                <li>Priority Support</li>
-            </ul>
-            <p>✨ Special Offer: $4.99 lifetime access</p>
-            <div id="paypal-button-container"></div>
+            <div class="tool-card">
+                <h2>Premium Features - One-Time Purchase</h2>
+                <p>Unlock all advanced features forever:</p>
+                <ul>
+                    <li>Step-by-Step PDF Guide</li>
+                    <li>Printable Can't Fail Checklist</li>
+                    <li>Universal Compatibility Checker</li>
+                    <li>Priority Support</li>
+                </ul>
+                <p>✨ Special Offer: $4.99 lifetime access</p>
+                <button onclick="handlePaymentInitiated(event)" class="premium-btn">
+                    Unlock Premium Features
+                </button>
+            </div>
         </div>
     </div>
-
-    <!-- Scripts -->
+<!-- Additional Scripts -->
     <script>
-        // Universal Compatibility Data
-        const universalCompatibility = {
-            genie: {
-                models: ['GIT-1, GIT-2', 'GT-912', 'GM-3T'],
-                frequencies: [290, 315, 390],
-                conversion: (freq) => freq === 390 ? 315 : 390,
-                notes: 'Compatible with most Genie models after 1995'
-            },
-            marantec: {
-                models: ['M3-2312', 'M4-2314', 'Digital 302'],
-                frequencies: [315, 390],
-                conversion: (freq) => freq === 390 ? 315 : 390,
-                notes: 'Works with Marantec Digital series'
-            },
-            hormann: {
-                models: ['HS4', 'HSM4', 'HSE2'],
-                frequencies: [315, 390],
-                conversion: (freq) => freq === 390 ? 315 : 390,
-                notes: 'European models may vary'
-            }
-            // Additional brands can be added here
-        };
-
-        // Unlock Premium Features Function
-        function unlockPremiumFeatures() {
-            localStorage.setItem('premiumAccess', 'true');
-            document.getElementById('premiumContent').classList.remove('premium-locked');
-            document.getElementById('premiumOverlay').style.display = 'none';
-            
-            const supportInfo = document.createElement('div');
-            supportInfo.className = 'support-info';
-            supportInfo.innerHTML = `
-                <div class="tool-card">
-                    <h2>📧 Priority Support</h2>
-                    <p>As a premium member, you have access to priority support.</p>
-                    <p>Contact us: <a href="mailto:handytoolshubnet@gmail.com">handytoolshubnet@gmail.com</a></p>
-                    <p>Average response time: 24 hours</p>
-                </div>
-            `;
-            document.querySelector('.premium-tools').appendChild(supportInfo);
-
-            document.getElementById('advancedChecker').style.display = 'block';
-            initializeAdvancedChecker();
-
-            const testButton = document.querySelector('#testButton');
-            if (testButton) {
-                testButton.style.display = 'none';
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check premium status
+            if (localStorage.getItem('premiumAccess') === 'true') {
+                unlockPremiumFeatures();
             }
 
-            gtag('event', 'premium_features_unlocked', {
-                'event_category': 'premium',
-                'event_label': 'features_unlocked'
+            // Initialize accordions
+            initializeAccordions();
+
+            // Add test button for development
+            addTestButton();
+
+            // Initialize advanced checker if premium
+            if (!document.getElementById('premiumContent').classList.contains('premium-locked')) {
+                initializeAdvancedChecker();
+            }
+        });
+
+        // Accordion functionality
+        function toggleAccordion(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        function initializeAccordions() {
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    this.nextElementSibling.classList.toggle('active');
+                });
             });
         }
 
-        // Basic Converter Function
-        function convertFrequency() {
-            const input = document.getElementById('frequencyInput');
-            const result = document.getElementById('result');
-            const frequency = parseFloat(input.value);
-
-            if (!frequency) {
-                result.innerHTML = '<p style="color: red;">Please enter a valid frequency.</p>';
-                return;
-            }
-
-            let converted;
-            if (frequency === 390) {
-                converted = 315;
-            } else if (frequency === 315) {
-                converted = 390;
-            } else {
-                result.innerHTML = '<p style="color: red;">Unsupported frequency. Please check the compatibility table.</p>';
-                return;
-            }
-
-            result.innerHTML = `
-                <p>Original Frequency: ${frequency} MHz</p>
-                <p>Converted Frequency: ${converted} MHz</p>
-                <p>✅ Ready for programming</p>
-            `;
-        }
-
-        // Advanced Checker Initialization
+        // Advanced checker functionality
         function initializeAdvancedChecker() {
-            const brandSelect = document.getElementById('compatibilitySelect');
+            const brandSelect = document.getElementById('brandSelect');
             const modelSelect = document.getElementById('modelSelect');
-            const freqInput = document.getElementById('freqInput');
-            const result = document.getElementById('compatibilityResult');
+            const freqInput = document.getElementById('advFreqInput');
 
+            // Populate brand select
             brandSelect.innerHTML = '<option value="">Select your brand</option>' +
                 Object.keys(universalCompatibility).map(brand => 
                     `<option value="${brand}">${brand.charAt(0).toUpperCase() + brand.slice(1)}</option>`
                 ).join('');
-
-            brandSelect.addEventListener('change', function() {
-                const brand = this.value;
-                if (brand) {
-                    const brandData = universalCompatibility[brand];
-                    modelSelect.style.display = 'block';
-                    modelSelect.innerHTML = '<option value="">Select your model</option>' +
-                        brandData.models.map(model => 
-                            `<option value="${model}">${model}</option>`
-                        ).join('');
-                } else {
-                    modelSelect.style.display = 'none';
-                    freqInput.style.display = 'none';
-                    result.innerHTML = '';
-                }
-            });
-
-            modelSelect.addEventListener('change', function() {
-                if (this.value) {
-                    freqInput.style.display = 'block';
-                } else {
-                    freqInput.style.display = 'none';
-                    result.innerHTML = '';
-                }
-            });
-
-            freqInput.addEventListener('change', function() {
-                const brand = brandSelect.value;
-                const freq = parseFloat(this.value);
-                if (brand && freq) {
-                    const brandData = universalCompatibility[brand];
-                    const converted = brandData.conversion(freq);
-                    result.innerHTML = `
-                        <h4>Results:</h4>
-                        <p>Original Frequency: ${freq} MHz</p>
-                        <p>Converted Frequency: ${converted} MHz</p>
-                        <p>Notes: ${brandData.notes}</p>
-                        <p>Supported Frequencies: ${brandData.frequencies.join(', ')} MHz</p>
-                    `;
-                }
-            });
         }
 
-        // Initialize accordions
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                content.classList.toggle('active');
-            });
-        });
+        function handleBrandSelect() {
+            const brandSelect = document.getElementById('brandSelect');
+            const modelSelect = document.getElementById('modelSelect');
+            const freqInput = document.getElementById('advFreqInput');
+            const result = document.getElementById('advCompatibilityResult');
 
-        // Check premium access on load
-        if (localStorage.getItem('premiumAccess') === 'true') {
-            unlockPremiumFeatures();
+            const brand = brandSelect.value;
+            if (brand) {
+                const brandData = universalCompatibility[brand];
+                modelSelect.style.display = 'block';
+                modelSelect.innerHTML = '<option value="">Select your model</option>' +
+                    brandData.models.map(model => 
+                        `<option value="${model}">${model}</option>`
+                    ).join('');
+            } else {
+                modelSelect.style.display = 'none';
+                freqInput.style.display = 'none';
+                result.innerHTML = '';
+            }
         }
 
-        // Add test button (for development)
-        const testButton = document.createElement('button');
-        testButton.id = 'testButton';
-        testButton.innerHTML = 'Test Premium Features';
-        testButton.style.position = 'fixed';
-        testButton.style.bottom = '10px';
-        testButton.style.right = '10px';
-        testButton.style.zIndex = '9999';
-        testButton.style.padding = '10px';
-        testButton.style.backgroundColor = '#007bff';
-        testButton.style.color = 'white';
-        testButton.style.border = 'none';
-        testButton.style.borderRadius = '5px';
-        testButton.style.cursor = 'pointer';
-        testButton.addEventListener('click', unlockPremiumFeatures);
-        document.body.appendChild(testButton);
+        function handleModelSelect() {
+            const modelSelect = document.getElementById('modelSelect');
+            const freqInput = document.getElementById('advFreqInput');
+            
+            if (modelSelect.value) {
+                freqInput.style.display = 'block';
+            } else {
+                freqInput.style.display = 'none';
+                document.getElementById('advCompatibilityResult').innerHTML = '';
+            }
+        }
+
+        function handleFrequencyInput() {
+            const brandSelect = document.getElementById('brandSelect');
+            const freqInput = document.getElementById('advFreqInput');
+            const result = document.getElementById('advCompatibilityResult');
+
+            const brand = brandSelect.value;
+            const freq = parseFloat(freqInput.value);
+
+            if (brand && freq) {
+                const brandData = universalCompatibility[brand];
+                const converted = brandData.conversion(freq);
+                result.innerHTML = `
+                    <h4>Results:</h4>
+                    <p>Original Frequency: ${freq} MHz</p>
+                    <p>Converted Frequency: ${converted} MHz</p>
+                    <p>Notes: ${brandData.notes}</p>
+                    <p>Supported Frequencies: ${brandData.frequencies.join(', ')} MHz</p>
+                `;
+            }
+        }
+
+        function handleDownload(type) {
+            alert(`Download started for ${type}. This is a demo feature.`);
+        }
+
+        function addTestButton() {
+            const testButton = document.createElement('button');
+            testButton.id = 'testButton';
+            testButton.innerHTML = 'Test Premium Features';
+            testButton.style.cssText = `
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+                z-index: 9999;
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            `;
+            testButton.addEventListener('click', unlockPremiumFeatures);
+            document.body.appendChild(testButton);
+        }
     </script>
 </body>
 </html>
