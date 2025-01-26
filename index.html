@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garage Door Frequency Converter</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .section { margin-bottom: 40px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .premium { background: #f8f9fa; border-color: #4CAF50; }
+        #testButton { background: #4CAF50; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h1>Garage Door Frequency Converter</h1>
+        <div id="converter">
+            <h2>How It Works</h2>
+            <p>Enter your remote's current frequency (found on the remote's back or in the manual) to get the compatible conversion frequency.</p>
+            <input type="number" id="frequencyInput" placeholder="Enter frequency (MHz)">
+            <button onclick="convertFrequency()">Convert</button>
+            <p id="result"></p>
+        </div>
+    </div>
 
+    <div class="section">
+        <h2>Brand Compatibility</h2>
+        <table>
+            <tr><th>Brand</th><th>Models</th><th>Original Frequency (MHz)</th></tr>
+            <tr><td>Chamberlain</td><td>953CB, 956CB, 956D, 953D</td><td>390</td></tr>
+            <tr><td>LiftMaster</td><td>371LM, 373LM, 375LM, 375UT</td><td>390</td></tr>
+            <tr><td>Craftsman</td><td>139.53753, 139.53773, 139.53879</td><td>390</td></tr>
+        </table>
+    </div>
+
+    <div class="section premium">
+        <h2>Premium Features</h2>
+        <button id="testButton" onclick="unlockPremium()">Test Premium Features (Bypass Payment)</button>
+        <p>✨ Special Offer: $4.99 lifetime access</p>
+        <div id="premiumContent" style="display:none;">
+            <h3>Unlocked Premium Features:</h3>
+            <ul>
+                <li>Step-by-Step PDF Guide</li>
+                <li>Printable Checklist</li>
+                <li>Universal Compatibility Checker</li>
+                <li>Priority Support</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function convertFrequency() {
+            const input = document.getElementById('frequencyInput').value;
+            const result = document.getElementById('result');
+            // Add actual conversion logic here
+            result.textContent = `Converted frequency: ${input} MHz → 315 MHz`;
+        }
+
+        function unlockPremium() {
+            document.getElementById('premiumContent').style.display = 'block';
+            document.getElementById('testButton').style.display = 'none';
+            alert('Premium features unlocked in test mode!');
+        }
+    </script>
+</body>
+</html>
