@@ -153,62 +153,78 @@
             border-radius: 4px;
             margin: 20px 0;
         }
+
         .premium-locked {
-    filter: blur(4px);
-    pointer-events: none;
-}
+            filter: blur(4px);
+            pointer-events: none;
+        }
 
-.premium-overlay {
-    position: relative;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 6px;
-    text-align: center;
-}
+        .premium-overlay {
+            position: relative;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            text-align: center;
+        }
 
-.premium-tools {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin: 20px 0;
-}
+        .premium-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
 
-.tool-card {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+        .tool-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-.download-button {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        .download-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-.paypal-button {
-    display: inline-block;
-    background: #0070ba;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
-    text-decoration: none;
-    margin-top: 15px;
-}
+        .paypal-button {
+            display: inline-block;
+            background: #0070ba;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
 
-.model-select {
-    width: 100%;
-    padding: 8px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+        .model-select {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .compatibility-result {
+            padding: 10px;
+            background: #e8f4ff;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .loading-message {
+            margin-top: 15px;
+            color: #666;
+            font-style: italic;
+        }
     </style>
 </head>
-<body>
+
+    <body>
     <div class="container">
         <div class="intro">
             <h1>Garage Door Frequency Converter</h1>
@@ -306,60 +322,94 @@
             </div>
         </div>
 
-<div class="premium-box">
-    <div id="premiumContent" class="premium-locked">
-        <div class="premium-tools">
-            <div class="tool-card">
-                <h2>📘 Step-by-Step Guide</h2>
-                <p>Complete guide with pictures and detailed instructions</p>
-                <button class="download-button" onclick="downloadPDF('guide')">
-                    Download PDF Guide
-                </button>
-            </div>
+        <div class="premium-box">
+            <div id="premiumContent" class="premium-locked">
+                <div class="premium-tools">
+                    <div class="tool-card">
+                        <h2>📘 Step-by-Step Guide</h2>
+                        <p>Complete guide with pictures and detailed instructions</p>
+                        <button class="download-button" onclick="downloadPDF('guide')">
+                            Download PDF Guide
+                        </button>
+                    </div>
 
-            <div class="tool-card">
-                <h2>✅ Can't Fail Checklist</h2>
-                <p>Print this checklist and follow each step</p>
-                <button class="download-button" onclick="downloadPDF('checklist')">
-                    Download Checklist
-                </button>
-            </div>
+                    <div class="tool-card">
+                        <h2>✅ Can't Fail Checklist</h2>
+                        <p>Print this checklist and follow each step</p>
+                        <button class="download-button" onclick="downloadPDF('checklist')">
+                            Download Checklist
+                        </button>
+                    </div>
 
-            <div class="tool-card">
-                <h2>🔍 Compatibility Checker</h2>
-                <select class="model-select" id="compatibilitySelect">
-                    <option value="">Select your model</option>
-                    <option value="chamberlain">Chamberlain</option>
-                    <option value="liftmaster">LiftMaster</option>
-                    <option value="craftsman">Craftsman</option>
-                    <option value="genie">Genie</option>
-                </select>
-                <div id="compatibilityResult"></div>
+                    <div class="tool-card">
+                        <h2>🔍 Compatibility Checker</h2>
+                        <select class="model-select" id="compatibilitySelect">
+                            <option value="">Select your model</option>
+                            <option value="chamberlain">Chamberlain</option>
+                            <option value="liftmaster">LiftMaster</option>
+                            <option value="craftsman">Craftsman</option>
+                            <option value="genie">Genie</option>
+                        </select>
+                        <div id="compatibilityResult"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="premiumOverlay" class="premium-overlay">
+                <h2>Premium Features - One-Time Purchase</h2>
+                <p>Unlock all advanced features forever:</p>
+                <ul class="feature-list">
+                    <li>Step-by-Step PDF Guide</li>
+                    <li>Printable Can't Fail Checklist</li>
+                    <li>Universal Compatibility Checker</li>
+                    <li>Priority Support</li>
+                </ul>
+                <p><strong>✨ Special Offer: $4.99 lifetime access</strong></p>
+                <a href="https://paypal.me/handytoolshub/4.99" 
+                   target="_blank" 
+                   class="paypal-button"
+                   onclick="handlePaymentInitiated()">
+                    Pay with PayPal
+                </a>
             </div>
         </div>
     </div>
-    
-    <div id="premiumOverlay" class="premium-overlay">
-        <h2>Premium Features - One-Time Purchase</h2>
-        <p>Unlock all advanced features forever:</p>
-        <ul class="feature-list">
-            <li>Step-by-Step PDF Guide</li>
-            <li>Printable Can't Fail Checklist</li>
-            <li>Universal Compatibility Checker</li>
-            <li>Priority Support</li>
-        </ul>
-        <p><strong>✨ Special Offer: $4.99 lifetime access</strong></p>
-        <a href="https://paypal.me/handytoolshub/4.99" 
-           target="_blank" 
-           class="paypal-button"
-           onclick="handlePaymentInitiated()">
-            Pay with PayPal
-        </a>
-    </div>
-</div>
-    </div>
 
-    <script>
+        <script>
+        // Handle premium access across tabs
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'premiumAccess' && e.newValue === 'true') {
+                unlockPremiumFeatures();
+            }
+        });
+
+        // Initialize compatibility checker
+        document.getElementById('compatibilitySelect').addEventListener('change', function() {
+            const select = this.value;
+            const result = document.getElementById('compatibilityResult');
+            
+            if (select) {
+                const compatibility = {
+                    'chamberlain': 'Compatible with 390MHz models. Use standard conversion.',
+                    'liftmaster': 'Compatible with all LiftMaster models from 1995-2015.',
+                    'craftsman': 'Compatible with 139.53xxx series models.',
+                    'genie': 'Limited compatibility. Contact support for assistance.'
+                };
+                
+                result.innerHTML = `<div style="padding: 10px; background: #e8f4ff; border-radius: 4px; margin-top: 10px;">
+                    ${compatibility[select]}
+                </div>`;
+
+                // Track selection in Analytics
+                gtag('event', 'compatibility_check', {
+                    'event_category': 'tool_usage',
+                    'event_label': select
+                });
+            } else {
+                result.innerHTML = '';
+            }
+        });
+
         function convertFrequency() {
             const input = document.getElementById('frequency-input').value;
             const result = document.getElementById('result');
@@ -373,7 +423,7 @@
                 `;
                 result.style.display = 'block';
                 
-                // Track successful conversion in Google Analytics
+                // Track successful conversion
                 gtag('event', 'frequency_conversion', {
                     'event_category': 'tool_usage',
                     'event_label': 'successful_conversion',
@@ -384,7 +434,7 @@
                 result.innerHTML = 'Please enter a valid frequency between 300-400 MHz.';
                 result.style.display = 'block';
                 
-                // Track invalid input in Google Analytics
+                // Track invalid input
                 gtag('event', 'frequency_conversion_error', {
                     'event_category': 'tool_usage',
                     'event_label': 'invalid_input',
@@ -407,7 +457,7 @@
             // Toggle the clicked item
             content.classList.toggle('active');
             
-            // Track accordion usage in Google Analytics
+            // Track accordion usage
             gtag('event', 'accordion_toggle', {
                 'event_category': 'engagement',
                 'event_label': id
@@ -415,98 +465,83 @@
         }
 
         function handlePaymentInitiated() {
-    // Save that payment was initiated
-    localStorage.setItem('paymentInitiated', 'true');
-    
-    // Track in Analytics
-    gtag('event', 'payment_initiated', {
-        'event_category': 'premium',
-        'event_label': 'paypal_me',
-        'value': 4.99
-    });
-    
-    // Check back in 3 minutes to unlock features
-    setTimeout(checkPayPalMeStatus, 180000);
-}
-// Add this to handlePaymentInitiated()
-function handlePaymentInitiated() {
-    // Existing code...
-    
-    // Add loading indication
-    document.getElementById('premiumOverlay').innerHTML += `
-        <div style="margin-top: 15px; color: #666;">
-            Processing payment... Premium features will unlock automatically.
-        </div>
-    `;
-}
-function checkPayPalMeStatus() {
-    if (localStorage.getItem('paymentInitiated') === 'true') {
-        // Assume payment completed after 3 minutes
-        localStorage.setItem('premiumAccess', 'true');
-        unlockPremiumFeatures();
-        
-        // Track successful upgrade
-        gtag('event', 'premium_upgrade', {
-            'event_category': 'premium',
-            'event_label': 'successful_upgrade'
-        });
-    }
-}
+            // Save payment initiation status
+            localStorage.setItem('paymentInitiated', 'true');
+            
+            // Add loading indication
+            const overlay = document.getElementById('premiumOverlay');
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'loading-message';
+            loadingDiv.innerHTML = 'Processing payment... Premium features will unlock automatically.';
+            overlay.appendChild(loadingDiv);
+            
+            // Track in Analytics
+            gtag('event', 'payment_initiated', {
+                'event_category': 'premium',
+                'event_label': 'paypal_me',
+                'value': 4.99
+            });
+            
+            // Check back in 3 minutes
+            setTimeout(checkPayPalMeStatus, 180000);
+        }
 
-function unlockPremiumFeatures() {
-    document.getElementById('premiumContent').classList.remove('premium-locked');
-    document.getElementById('premiumOverlay').style.display = 'none';
-}
+        function checkPayPalMeStatus() {
+            if (localStorage.getItem('paymentInitiated') === 'true') {
+                // Assume payment completed after 3 minutes
+                localStorage.setItem('premiumAccess', 'true');
+                unlockPremiumFeatures();
+                
+                // Track successful upgrade
+                gtag('event', 'premium_upgrade', {
+                    'event_category': 'premium',
+                    'event_label': 'successful_upgrade'
+                });
+            }
+        }
 
-function downloadPDF(type) {
-    if (!localStorage.getItem('premiumAccess')) {
-        alert('Please purchase premium access first');
-        return;
-    }
+        function unlockPremiumFeatures() {
+            document.getElementById('premiumContent').classList.remove('premium-locked');
+            document.getElementById('premiumOverlay').style.display = 'none';
 
-    const files = {
-        'guide': 'garage-conversion-guide.pdf',
-        'checklist': 'conversion-checklist.pdf'
-    };
+            // Track premium feature unlock
+            gtag('event', 'premium_features_unlocked', {
+                'event_category': 'premium',
+                'event_label': 'features_unlocked'
+            });
+        }
 
-    // Track download in Analytics
-    gtag('event', 'download', {
-        'file_name': files[type]
-    });
+        function downloadPDF(type) {
+            if (!localStorage.getItem('premiumAccess')) {
+                alert('Please purchase premium access first');
+                return;
+            }
 
-    // Create download link
-    const link = document.createElement('a');
-    link.href = `/assets/${files[type]}`;
-    link.download = files[type];
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+            const files = {
+                'guide': 'garage-conversion-guide.pdf',
+                'checklist': 'conversion-checklist.pdf'
+            };
 
-// Check premium access on load
-if (localStorage.getItem('premiumAccess') === 'true') {
-    unlockPremiumFeatures();
-}
-        // Add this to your script section
-document.getElementById('compatibilitySelect').addEventListener('change', function() {
-    const select = this.value;
-    const result = document.getElementById('compatibilityResult');
-    
-    if (select) {
-        const compatibility = {
-            'chamberlain': 'Compatible with 390MHz models. Use standard conversion.',
-            'liftmaster': 'Compatible with all LiftMaster models from 1995-2015.',
-            'craftsman': 'Compatible with 139.53xxx series models.',
-            'genie': 'Limited compatibility. Contact support for assistance.'
-        };
-        
-        result.innerHTML = `<div style="padding: 10px; background: #e8f4ff; border-radius: 4px; margin-top: 10px;">
-            ${compatibility[select]}
-        </div>`;
-    } else {
-        result.innerHTML = '';
-    }
-});
+            // Track download
+            gtag('event', 'pdf_download', {
+                'event_category': 'premium',
+                'event_label': type,
+                'file_name': files[type]
+            });
+
+            // Create download link
+            const link = document.createElement('a');
+            link.href = `/assets/${files[type]}`;
+            link.download = files[type];
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Check premium access on load
+        if (localStorage.getItem('premiumAccess') === 'true') {
+            unlockPremiumFeatures();
+        }
     </script>
 </body>
 </html>
