@@ -414,15 +414,6 @@
             });
         }
 
-        function showPremiumOptions() {
-            alert('Get lifetime premium access for just $4.99! Contact us at support@example.com to upgrade.');
-            // Track premium button click in Google Analytics
-            gtag('event', 'premium_button_click', {
-                'event_category': 'engagement',
-                'event_label': 'premium_access',
-                'price': '4.99'
-            });
-        }
         function handlePaymentInitiated() {
     // Save that payment was initiated
     localStorage.setItem('paymentInitiated', 'true');
@@ -437,7 +428,17 @@
     // Check back in 3 minutes to unlock features
     setTimeout(checkPayPalMeStatus, 180000);
 }
-
+// Add this to handlePaymentInitiated()
+function handlePaymentInitiated() {
+    // Existing code...
+    
+    // Add loading indication
+    document.getElementById('premiumOverlay').innerHTML += `
+        <div style="margin-top: 15px; color: #666;">
+            Processing payment... Premium features will unlock automatically.
+        </div>
+    `;
+}
 function checkPayPalMeStatus() {
     if (localStorage.getItem('paymentInitiated') === 'true') {
         // Assume payment completed after 3 minutes
@@ -486,6 +487,26 @@ function downloadPDF(type) {
 if (localStorage.getItem('premiumAccess') === 'true') {
     unlockPremiumFeatures();
 }
+        // Add this to your script section
+document.getElementById('compatibilitySelect').addEventListener('change', function() {
+    const select = this.value;
+    const result = document.getElementById('compatibilityResult');
+    
+    if (select) {
+        const compatibility = {
+            'chamberlain': 'Compatible with 390MHz models. Use standard conversion.',
+            'liftmaster': 'Compatible with all LiftMaster models from 1995-2015.',
+            'craftsman': 'Compatible with 139.53xxx series models.',
+            'genie': 'Limited compatibility. Contact support for assistance.'
+        };
+        
+        result.innerHTML = `<div style="padding: 10px; background: #e8f4ff; border-radius: 4px; margin-top: 10px;">
+            ${compatibility[select]}
+        </div>`;
+    } else {
+        result.innerHTML = '';
+    }
+});
     </script>
 </body>
 </html>
