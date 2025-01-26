@@ -519,5 +519,18 @@
             unlockPremiumFeatures();
         }
     </script>
+    <script>
+        // Add test button
+        const testButton = document.createElement('button');
+        testButton.innerHTML = 'Test Premium Features';
+        testButton.style.position = 'fixed';
+        testButton.style.bottom = '10px';
+        testButton.style.right = '10px';
+        testButton.style.zIndex = '9999';
+        testButton.onclick = unlockPremiumFeatures;
+        document.body.appendChild(testButton);
+    </script>
+</body>
+</html>
 </body>
 </html>
