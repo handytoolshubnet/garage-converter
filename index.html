@@ -5,101 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garage Door Frequency Converter</title>
     <style>
+        /* Base styles */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
-            margin: 0;
-            padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
-            background: #f5f5f5;
+            padding: 20px;
+            background-color: #f5f5f5;
         }
 
         .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        h1, h2, h3 {
-            color: #2c3e50;
-            margin-top: 0;
-        }
-
-        .tool-card {
-            background: white;
+            background-color: white;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        /* Converter styles */
+        .converter-section {
             margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
         }
 
         input, select, button {
             padding: 10px;
-            margin: 10px 0;
+            margin: 5px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            width: 100%;
-            max-width: 300px;
-            box-sizing: border-box;
         }
 
         button {
-            background: #3498db;
+            background-color: #007bff;
             color: white;
             border: none;
             cursor: pointer;
-            transition: background 0.3s;
         }
 
         button:hover {
-            background: #2980b9;
+            background-color: #0056b3;
         }
 
+        /* Table styles */
         .compatibility-table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
 
-        .compatibility-table th, .compatibility-table td {
-            padding: 12px;
+        .compatibility-table th,
+        .compatibility-table td {
             border: 1px solid #ddd;
+            padding: 12px;
             text-align: left;
         }
 
         .compatibility-table th {
-            background: #f8f9fa;
+            background-color: #f8f9fa;
         }
 
-        .faq-section {
-            margin: 30px 0;
-        }
-
-        .accordion-header {
-            background: #f8f9fa;
-            padding: 15px;
-            margin: 5px 0;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .accordion-content {
-            display: none;
-            padding: 15px;
-            background: white;
-        }
-
-        .accordion-content.active {
-            display: block;
-        }
-
-        .premium-tools {
-            position: relative;
-        }
-
+        /* Premium content styles */
         .premium-locked {
+            position: relative;
             filter: blur(4px);
             pointer-events: none;
         }
@@ -112,94 +85,61 @@
             bottom: 0;
             background: rgba(255,255,255,0.9);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 20px;
+            flex-direction: column;
+            z-index: 1000;
         }
 
-        .paypal-button {
-            display: inline-block;
-            background: #0070ba;
-            color: white;
-            text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 4px;
-            margin-top: 15px;
-            transition: background 0.3s;
-        }
-
-        .paypal-button:hover {
-            background: #003087;
-        }
-
-        .brands-preview {
-            margin: 30px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-        }
-
-        .brands-basic, .brands-premium {
-            margin: 15px 0;
-        }
-
-        .premium-brands-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-
-        .premium-note {
-            color: #666;
-            font-style: italic;
-            margin-top: 15px;
-        }
-
-        .model-select {
-            margin-bottom: 10px;
-        }
-
-        .compatibility-result {
-            margin-top: 15px;
+        /* Accordion styles */
+        .accordion-header {
+            background-color: #f8f9fa;
             padding: 15px;
-            background: #f8f9fa;
+            margin-top: 10px;
+            cursor: pointer;
             border-radius: 4px;
         }
 
-        .loading-message {
-            margin-top: 15px;
-            color: #666;
-            font-style: italic;
+        .accordion-content {
+            display: none;
+            padding: 15px;
         }
 
-        .support-info {
-            margin-top: 20px;
+        .accordion-content.active {
+            display: block;
+        }
+
+        /* Tool card styles */
+        .tool-card {
+            background-color: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <h1>Garage Door Frequency Converter</h1>
         <p>Convert your garage door remote frequency for compatibility with newer systems. Specializing in Chamberlain, LiftMaster, and Craftsman remotes from 1995-2015.</p>
-
+        
         <div class="tool-card">
             <h2>How it works:</h2>
             <p>Enter your remote's current frequency (found on the remote's back or in the manual) to get the compatible conversion frequency.</p>
         </div>
 
+        <!-- Basic Frequency Converter -->
         <div class="tool-card">
             <h2>Frequency Converter</h2>
-            <input type="number" id="frequencyInput" placeholder="Enter your remote's frequency (MHz)">
-            <button onclick="convertFrequency()">Convert</button>
-            <div id="result"></div>
+            <div class="converter-section">
+                <input type="number" id="frequencyInput" placeholder="Enter frequency (MHz)">
+                <button onclick="convertFrequency()">Convert</button>
+                <div id="result"></div>
+            </div>
         </div>
 
+        <!-- Brand Compatibility -->
         <div class="tool-card">
             <h2>Brand Compatibility</h2>
             <table class="compatibility-table">
@@ -230,9 +170,10 @@
             </table>
         </div>
 
-        <div class="brands-preview">
+        <!-- Supported Brands -->
+        <div class="tool-card">
             <h2>Supported Brands</h2>
-            <div class="brands-basic">
+            <div class="free-version">
                 <h3>Free Version Includes:</h3>
                 <ul>
                     <li>Chamberlain</li>
@@ -240,9 +181,10 @@
                     <li>Craftsman</li>
                 </ul>
             </div>
-            <div class="brands-premium">
+
+            <div class="premium-brands">
                 <h3>Premium Version Includes 15+ Additional Brands:</h3>
-                <ul class="premium-brands-list">
+                <ul>
                     <li>Genie</li>
                     <li>Marantec</li>
                     <li>Hörmann</li>
@@ -257,232 +199,166 @@
                     <li>DoorKing</li>
                     <li>And more...</li>
                 </ul>
-                <p class="premium-note">🔓 Unlock all brands with premium access</p>
+                <p>🔓 Unlock all brands with premium access</p>
             </div>
         </div>
 
-        <div class="faq-section">
+        <!-- FAQ Section -->
+        <div class="tool-card">
             <h2>Frequently Asked Questions</h2>
-            <div class="tool-card">
-                <h3>Common Questions</h3>
-                <div class="accordion">
-                    <div class="accordion-header">Q: How do I find my remote's frequency?</div>
-                    <div class="accordion-content">
-                        A: Look for a sticker on the back of your remote or check your user manual. Common frequencies are 300, 315, 318, and 390 MHz.
-                    </div>
-                </div>
-                <div class="accordion">
-                    <div class="accordion-header">Q: Will this work with my garage door opener?</div>
-                    <div class="accordion-content">
-                        A: This tool is specifically designed for Chamberlain, LiftMaster, and Craftsman models from 1995-2015. Check the compatibility table above.
-                    </div>
-                </div>
-                <div class="accordion">
-                    <div class="accordion-header">Q: Is the conversion permanent?</div>
-                    <div class="accordion-content">
-                        A: No, this doesn't modify your remote. It helps you find the compatible frequency for programming.
-                    </div>
-                </div>
-                <div class="accordion">
-                    <div class="accordion-header">Q: Do I need special tools?</div>
-                    <div class="accordion-content">
-                        A: No special tools required. Just your remote and this converter.
-                    </div>
+            
+            <div class="accordion">
+                <div class="accordion-header">Common Questions</div>
+                <div class="accordion-content">
+                    <h4>Q: How do I find my remote's frequency?</h4>
+                    <p>A: Look for a sticker on the back of your remote or check your user manual. Common frequencies are 300, 315, 318, and 390 MHz.</p>
+
+                    <h4>Q: Will this work with my garage door opener?</h4>
+                    <p>A: This tool is specifically designed for Chamberlain, LiftMaster, and Craftsman models from 1995-2015. Check the compatibility table above.</p>
+
+                    <h4>Q: Is the conversion permanent?</h4>
+                    <p>A: No, this doesn't modify your remote. It helps you find the compatible frequency for programming.</p>
+
+                    <h4>Q: Do I need special tools?</h4>
+                    <p>A: No special tools required. Just your remote and this converter.</p>
                 </div>
             </div>
 
-            <div class="tool-card">
-                <h3>Troubleshooting Tips</h3>
-                <div class="accordion">
-                    <div class="accordion-header">Remote not responding after conversion:</div>
-                    <div class="accordion-content">
-                        <ul>
-                            <li>Verify the original frequency matches your remote</li>
-                            <li>Check remote battery</li>
-                            <li>Ensure proper programming sequence</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="accordion">
-                    <div class="accordion-header">Inconsistent operation:</div>
-                    <div class="accordion-content">
-                        <ul>
-                            <li>Clear any metal objects between remote and receiver</li>
-                            <li>Try reprogramming the remote</li>
-                            <li>Check for interference from nearby devices</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="accordion">
-                    <div class="accordion-header">Programming difficulties:</div>
-                    <div class="accordion-content">
-                        <ul>
-                            <li>Hold remote closer to the garage door opener</li>
-                            <li>Follow programming sequence exactly</li>
-                            <li>Try fresh batteries</li>
-                        </ul>
-                    </div>
+            <div class="accordion">
+                <div class="accordion-header">Troubleshooting Tips</div>
+                <div class="accordion-content">
+                    <h4>Remote not responding after conversion:</h4>
+                    <ul>
+                        <li>Verify the original frequency matches your remote</li>
+                        <li>Check remote battery</li>
+                        <li>Ensure proper programming sequence</li>
+                    </ul>
+
+                    <h4>Inconsistent operation:</h4>
+                    <ul>
+                        <li>Clear any metal objects between remote and receiver</li>
+                        <li>Try reprogramming the remote</li>
+                        <li>Check for interference from nearby devices</li>
+                    </ul>
+
+                    <h4>Programming difficulties:</h4>
+                    <ul>
+                        <li>Hold remote closer to the garage door opener</li>
+                        <li>Follow programming sequence exactly</li>
+                        <li>Try fresh batteries</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <div class="premium-tools">
-            <div id="premiumContent" class="premium-locked">
+        <!-- Premium Features Section -->
+        <div id="premiumContent" class="premium-locked">
+            <!-- Premium Tools -->
+            <div class="premium-tools">
                 <div class="tool-card">
                     <h2>📘 Step-by-Step Guide</h2>
                     <p>Complete guide with pictures and detailed instructions</p>
-                    <button onclick="downloadGuide()">Download PDF Guide</button>
+                    <button class="download-btn">Download PDF Guide</button>
                 </div>
 
                 <div class="tool-card">
                     <h2>✅ Can't Fail Checklist</h2>
                     <p>Print this checklist and follow each step</p>
-                    <button onclick="downloadChecklist()">Download Checklist</button>
+                    <button class="download-btn">Download Checklist</button>
                 </div>
 
                 <div class="tool-card">
                     <h2>🔍 Advanced Compatibility Checker</h2>
-                    <select class="model-select" id="compatibilitySelect">
-                        <option value="">Select your brand</option>
-                    </select>
-                    <select class="model-select" id="modelSelect" style="display: none;">
-                        <option value="">Select your model</option>
-                    </select>
-                    <input type="number" 
-                           id="freqInput" 
-                           placeholder="Enter frequency (MHz)" 
-                           style="display: none;"
-                           class="model-select">
-                    <div id="compatibilityResult" class="compatibility-result"></div>
+                    <div id="advancedChecker">
+                        <select id="compatibilitySelect">
+                            <option value="">Select your brand</option>
+                        </select>
+                        
+                        <select id="modelSelect" style="display: none;">
+                            <option value="">Select your model</option>
+                        </select>
+                        
+                        <input type="number" id="freqInput" style="display: none;" placeholder="Enter frequency (MHz)">
+                        
+                        <div id="compatibilityResult"></div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div id="premiumOverlay" class="premium-overlay">
-                <h2>Premium Features - One-Time Purchase</h2>
-                <p>Unlock all advanced features forever:</p>
-                <ul>
-                    <li>Step-by-Step PDF Guide</li>
-                    <li>Printable Can't Fail Checklist</li>
-                    <li>Universal Compatibility Checker</li>
-                    <li>Priority Support</li>
-                </ul>
-                <p>✨ Special Offer: $4.99 lifetime access</p>
-                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=handytoolshubnet@gmail.com&currency_code=USD&amount=4.99&item_name=Garage Door Converter Premium Access"
-                   target="_blank" 
-                   class="paypal-button"
-                   onclick="handlePaymentInitiated()">
-                    Pay with PayPal ($4.99 USD)
-                </a>
-            </div>
+        <!-- Premium Overlay -->
+        <div id="premiumOverlay" class="premium-overlay">
+            <h2>Premium Features - One-Time Purchase</h2>
+            <p>Unlock all advanced features forever:</p>
+            <ul>
+                <li>Step-by-Step PDF Guide</li>
+                <li>Printable Can't Fail Checklist</li>
+                <li>Universal Compatibility Checker</li>
+                <li>Priority Support</li>
+            </ul>
+            <p>✨ Special Offer: $4.99 lifetime access</p>
+            <div id="paypal-button-container"></div>
         </div>
     </div>
 
-    <!-- Google Analytics Code -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79LTQ8LLML"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-79LTQ8LLML');
-    </script>
-
+    <!-- Scripts -->
     <script>
         // Universal Compatibility Data
         const universalCompatibility = {
-            const universalCompatibility = {
-    genie: {
-        models: ['GIT-1', 'GIT-2', 'GIT-3', 'GM-3T', 'GITR-3', 'G3T-R'],
-        frequencies: [288, 315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Compatible with most Genie models from 1995-2015'
-    },
-    marantec: {
-        models: ['M13-631', 'M13-632', 'Digital 302', 'Digital 313', 'M3-2312'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Works with Marantec Security+ systems'
-    },
-    hormann: {
-        models: ['HS4', 'HSM4', 'HSE2', 'HSD2', 'HSP4'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'European models may require additional programming'
-    },
-    somfy: {
-        models: ['KEYTIS-NS2', 'KEYTIS-NS4', 'K-RTS', 'Telis RTS', 'Situo RTS'],
-        frequencies: [315, 433],
-        conversion: (freq) => freq === 433 ? 315 : 433,
-        notes: 'Primarily for RTS systems'
-    },
-    linear: {
-        models: ['MCT-11', 'ACT-34B', 'DNT00090', 'MT-1B', 'LS-5'],
-        frequencies: [310, 390],
-        conversion: (freq) => freq === 390 ? 310 : 390,
-        notes: 'Compatible with MegaCode systems'
-    },
-    stanley: {
-        models: ['1050', '370-3314', '370-3850', 'SecureCode'],
-        frequencies: [310, 390],
-        conversion: (freq) => freq === 390 ? 310 : 390,
-        notes: 'Works with most Stanley garage door systems'
-    },
-    overheaddoor: {
-        models: ['OCDTR-3', 'OKR-1', 'OCDT', 'CodeDodger'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Compatible with CodeDodger technology'
-    },
-    allstar: {
-        models: ['9921T', '9931T', 'AllStar MVP', 'QuickCode'],
-        frequencies: [318, 390],
-        conversion: (freq) => freq === 390 ? 318 : 390,
-        notes: 'Works with MVP and QuickCode systems'
-    },
-    multicode: {
-        models: ['4120', '4140', '3089', '3070'],
-        frequencies: [300, 390],
-        conversion: (freq) => freq === 390 ? 300 : 390,
-        notes: 'Compatible with Linear MultiCode systems'
-    },
-    waynedalton: {
-        models: ['309884', '327310', '309884', 'WD-327310'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Compatible with most Wayne Dalton systems after 1999'
-    },
-    guardian: {
-        models: ['GDR-333', 'GDT-3', 'GDP-3'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Works with Guardian opener systems'
-    },
-    doorking: {
-        models: ['8067-080', '8067-085', 'MicroPLUS'],
-        frequencies: [318, 390],
-        conversion: (freq) => freq === 390 ? 318 : 390,
-        notes: 'Compatible with MicroPLUS technology'
-    },
-    chamberlain: {
-        models: ['956EV', '953EV', '950ESTD', 'Security+'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Works with Security+ and Security+ 2.0 systems'
-    },
-    liftmaster: {
-        models: ['371LM', '373LM', '375LM', 'Security+'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Compatible with most LiftMaster systems since 1993'
-    },
-    craftsman: {
-        models: ['139.53753', '139.53773', '139.53879'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Works with Craftsman garage door openers'
-    }
-};
+            genie: {
+                models: ['GIT-1, GIT-2', 'GT-912', 'GM-3T'],
+                frequencies: [290, 315, 390],
+                conversion: (freq) => freq === 390 ? 315 : 390,
+                notes: 'Compatible with most Genie models after 1995'
+            },
+            marantec: {
+                models: ['M3-2312', 'M4-2314', 'Digital 302'],
+                frequencies: [315, 390],
+                conversion: (freq) => freq === 390 ? 315 : 390,
+                notes: 'Works with Marantec Digital series'
+            },
+            hormann: {
+                models: ['HS4', 'HSM4', 'HSE2'],
+                frequencies: [315, 390],
+                conversion: (freq) => freq === 390 ? 315 : 390,
+                notes: 'European models may vary'
+            }
+            // Additional brands can be added here
         };
 
+        // Unlock Premium Features Function
+        function unlockPremiumFeatures() {
+            localStorage.setItem('premiumAccess', 'true');
+            document.getElementById('premiumContent').classList.remove('premium-locked');
+            document.getElementById('premiumOverlay').style.display = 'none';
+            
+            const supportInfo = document.createElement('div');
+            supportInfo.className = 'support-info';
+            supportInfo.innerHTML = `
+                <div class="tool-card">
+                    <h2>📧 Priority Support</h2>
+                    <p>As a premium member, you have access to priority support.</p>
+                    <p>Contact us: <a href="mailto:handytoolshubnet@gmail.com">handytoolshubnet@gmail.com</a></p>
+                    <p>Average response time: 24 hours</p>
+                </div>
+            `;
+            document.querySelector('.premium-tools').appendChild(supportInfo);
+
+            document.getElementById('advancedChecker').style.display = 'block';
+            initializeAdvancedChecker();
+
+            const testButton = document.querySelector('#testButton');
+            if (testButton) {
+                testButton.style.display = 'none';
+            }
+
+            gtag('event', 'premium_features_unlocked', {
+                'event_category': 'premium',
+                'event_label': 'features_unlocked'
+            });
+        }
+
+        // Basic Converter Function
         function convertFrequency() {
             const input = document.getElementById('frequencyInput');
             const result = document.getElementById('result');
@@ -510,13 +386,13 @@
             `;
         }
 
+        // Advanced Checker Initialization
         function initializeAdvancedChecker() {
             const brandSelect = document.getElementById('compatibilitySelect');
             const modelSelect = document.getElementById('modelSelect');
             const freqInput = document.getElementById('freqInput');
             const result = document.getElementById('compatibilityResult');
 
-            // Populate brands
             brandSelect.innerHTML = '<option value="">Select your brand</option>' +
                 Object.keys(universalCompatibility).map(brand => 
                     `<option value="${brand}">${brand.charAt(0).toUpperCase() + brand.slice(1)}</option>`
@@ -564,53 +440,6 @@
             });
         }
 
-        function handlePaymentInitiated() {
-            gtag('event', 'begin_checkout', {
-                'event_category': 'ecommerce',
-                'event_label': 'premium_access'
-            });
-        }
-
-function unlockPremiumFeatures() {
-    // Set premium access in localStorage
-    localStorage.setItem('premiumAccess', 'true');
-    
-    // Remove premium locks
-    document.getElementById('premiumContent').classList.remove('premium-locked');
-    document.getElementById('premiumOverlay').style.display = 'none';
-    
-    // Add support email information
-    const supportInfo = document.createElement('div');
-    supportInfo.className = 'support-info';
-    supportInfo.innerHTML = `
-        <div class="tool-card">
-            <h2>📧 Priority Support</h2>
-            <p>As a premium member, you have access to priority support.</p>
-            <p>Contact us: <a href="mailto:handytoolshubnet@gmail.com">handytoolshubnet@gmail.com</a></p>
-            <p>Average response time: 24 hours</p>
-        </div>
-    `;
-    document.querySelector('.premium-tools').appendChild(supportInfo);
-
-    // Show advanced compatibility checker
-    document.getElementById('advancedChecker').style.display = 'block';
-    
-    // Initialize advanced checker
-    initializeAdvancedChecker();
-
-    // Hide the test button after unlocking (if it exists)
-    const testButton = document.querySelector('#testButton');
-    if (testButton) {
-        testButton.style.display = 'none';
-    }
-
-    // Google Analytics tracking
-    gtag('event', 'premium_features_unlocked', {
-        'event_category': 'premium',
-        'event_label': 'features_unlocked'
-    });
-}
-
         // Initialize accordions
         document.querySelectorAll('.accordion-header').forEach(header => {
             header.addEventListener('click', function() {
@@ -623,16 +452,22 @@ function unlockPremiumFeatures() {
         if (localStorage.getItem('premiumAccess') === 'true') {
             unlockPremiumFeatures();
         }
-    </script>
-    <script>
-        // Add test button
+
+        // Add test button (for development)
         const testButton = document.createElement('button');
+        testButton.id = 'testButton';
         testButton.innerHTML = 'Test Premium Features';
         testButton.style.position = 'fixed';
         testButton.style.bottom = '10px';
         testButton.style.right = '10px';
         testButton.style.zIndex = '9999';
-        testButton.onclick = unlockPremiumFeatures;
+        testButton.style.padding = '10px';
+        testButton.style.backgroundColor = '#007bff';
+        testButton.style.color = 'white';
+        testButton.style.border = 'none';
+        testButton.style.borderRadius = '5px';
+        testButton.style.cursor = 'pointer';
+        testButton.addEventListener('click', unlockPremiumFeatures);
         document.body.appendChild(testButton);
     </script>
 </body>
