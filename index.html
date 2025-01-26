@@ -153,6 +153,59 @@
             border-radius: 4px;
             margin: 20px 0;
         }
+        .premium-locked {
+    filter: blur(4px);
+    pointer-events: none;
+}
+
+.premium-overlay {
+    position: relative;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.premium-tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.tool-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.download-button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.paypal-button {
+    display: inline-block;
+    background: #0070ba;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 15px;
+}
+
+.model-select {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
     </style>
 </head>
 <body>
@@ -253,20 +306,57 @@
             </div>
         </div>
 
-        <div class="premium-box">
-            <h2>Premium Features - One-Time Purchase</h2>
-            <p>Unlock all advanced features forever with a single purchase:</p>
-            <ul class="feature-list">
-                <li>Universal compatibility check for all major brands</li>
-                <li>Batch conversion for multiple remotes</li>
-                <li>Priority technical support via email</li>
-                <li>Detailed frequency analysis and recommendations</li>
-                <li>Access to professional programming guides</li>
-                <li>Commercial use license</li>
-            </ul>
-            <p><strong>✨ Special Offer: One-time payment of just $4.99 for lifetime access</strong></p>
-            <button onclick="showPremiumOptions()" style="margin-top: 15px;">Get Premium Access ($4.99)</button>
+<div class="premium-box">
+    <div id="premiumContent" class="premium-locked">
+        <div class="premium-tools">
+            <div class="tool-card">
+                <h2>📘 Step-by-Step Guide</h2>
+                <p>Complete guide with pictures and detailed instructions</p>
+                <button class="download-button" onclick="downloadPDF('guide')">
+                    Download PDF Guide
+                </button>
+            </div>
+
+            <div class="tool-card">
+                <h2>✅ Can't Fail Checklist</h2>
+                <p>Print this checklist and follow each step</p>
+                <button class="download-button" onclick="downloadPDF('checklist')">
+                    Download Checklist
+                </button>
+            </div>
+
+            <div class="tool-card">
+                <h2>🔍 Compatibility Checker</h2>
+                <select class="model-select" id="compatibilitySelect">
+                    <option value="">Select your model</option>
+                    <option value="chamberlain">Chamberlain</option>
+                    <option value="liftmaster">LiftMaster</option>
+                    <option value="craftsman">Craftsman</option>
+                    <option value="genie">Genie</option>
+                </select>
+                <div id="compatibilityResult"></div>
+            </div>
         </div>
+    </div>
+    
+    <div id="premiumOverlay" class="premium-overlay">
+        <h2>Premium Features - One-Time Purchase</h2>
+        <p>Unlock all advanced features forever:</p>
+        <ul class="feature-list">
+            <li>Step-by-Step PDF Guide</li>
+            <li>Printable Can't Fail Checklist</li>
+            <li>Universal Compatibility Checker</li>
+            <li>Priority Support</li>
+        </ul>
+        <p><strong>✨ Special Offer: $4.99 lifetime access</strong></p>
+        <a href="https://paypal.me/handytoolshub/4.99" 
+           target="_blank" 
+           class="paypal-button"
+           onclick="handlePaymentInitiated()">
+            Pay with PayPal
+        </a>
+    </div>
+</div>
     </div>
 
     <script>
@@ -333,6 +423,69 @@
                 'price': '4.99'
             });
         }
+        function handlePaymentInitiated() {
+    // Save that payment was initiated
+    localStorage.setItem('paymentInitiated', 'true');
+    
+    // Track in Analytics
+    gtag('event', 'payment_initiated', {
+        'event_category': 'premium',
+        'event_label': 'paypal_me',
+        'value': 4.99
+    });
+    
+    // Check back in 3 minutes to unlock features
+    setTimeout(checkPayPalMeStatus, 180000);
+}
+
+function checkPayPalMeStatus() {
+    if (localStorage.getItem('paymentInitiated') === 'true') {
+        // Assume payment completed after 3 minutes
+        localStorage.setItem('premiumAccess', 'true');
+        unlockPremiumFeatures();
+        
+        // Track successful upgrade
+        gtag('event', 'premium_upgrade', {
+            'event_category': 'premium',
+            'event_label': 'successful_upgrade'
+        });
+    }
+}
+
+function unlockPremiumFeatures() {
+    document.getElementById('premiumContent').classList.remove('premium-locked');
+    document.getElementById('premiumOverlay').style.display = 'none';
+}
+
+function downloadPDF(type) {
+    if (!localStorage.getItem('premiumAccess')) {
+        alert('Please purchase premium access first');
+        return;
+    }
+
+    const files = {
+        'guide': 'garage-conversion-guide.pdf',
+        'checklist': 'conversion-checklist.pdf'
+    };
+
+    // Track download in Analytics
+    gtag('event', 'download', {
+        'file_name': files[type]
+    });
+
+    // Create download link
+    const link = document.createElement('a');
+    link.href = `/assets/${files[type]}`;
+    link.download = files[type];
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Check premium access on load
+if (localStorage.getItem('premiumAccess') === 'true') {
+    unlockPremiumFeatures();
+}
     </script>
 </body>
 </html>
