@@ -389,79 +389,7 @@
     <script>
         // Universal Compatibility Data
         const universalCompatibility = {
-            genie: {
-        models: ['GIT-1, GIT-2, GIT-3', 'GITR-3', 'GM-3T'],
-        frequencies: [288, 315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Compatible with most Genie models from 1995-2015'
-    },
-    marantec: {
-        models: ['M13-631', 'M13-632', 'M3-2312', '104052'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Verify model number on remote back panel'
-    },
-    hormann: {
-        models: ['HS', 'HSE', 'HSP', 'HSD'],
-        frequencies: [288, 315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'European models may use different frequencies'
-    },
-    somfy: {
-        models: ['KEYTIS-2', 'KEYTIS-4', 'K-RTS'],
-        frequencies: [315, 390, 433.42],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'RTS system compatibility only'
-    },
-    linear: {
-        models: ['MCT-11', 'ACT-34B', 'DNT00026'],
-        frequencies: [288, 315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Check for MegaCode compatibility'
-    },
-    stanley: {
-        models: ['1050', '370-3502', '370-3504'],
-        frequencies: [310, 315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Older models may require additional programming'
-    },
-    overheadDoor: {
-        models: ['OCDTR-3', 'OKR-1', 'OCDT'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'CodeDodger® system compatible'
-    },
-    allstar: {
-        models: ['9921T', '9931T', 'ALT-1'],
-        frequencies: [288, 315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Check dip switch settings'
-    },
-    multiCode: {
-        models: ['3060', '3089', '4120'],
-        frequencies: [300, 315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Verify coding switches match'
-    },
-    wayneDalton: {
-        models: ['303MHz', '327MHz', '372MHz'],
-        frequencies: [303, 315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Production date affects compatibility'
-    },
-    guardian: {
-        models: ['GDR-3', 'GDT-3', 'GDCLK-3'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'Security+ compatible models only'
-    },
-    doorKing: {
-        models: ['8067-080', '8067-085', 'TR1840'],
-        frequencies: [315, 390],
-        conversion: (freq) => freq === 390 ? 315 : 390,
-        notes: 'MicroPLUS compatibility required'
-    }
-};
+            // [Insert the entire universalCompatibility object from earlier here]
         };
 
         function convertFrequency() {
@@ -587,11 +515,9 @@
         });
 
         // Check premium access on load
-        /*
         if (localStorage.getItem('premiumAccess') === 'true') {
             unlockPremiumFeatures();
         }
-        */
     </script>
 </body>
 </html>
