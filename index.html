@@ -14,6 +14,7 @@
         .premium-btn:hover { background: #45a049; }
         .hidden { display: none; }
         #premiumFeatures { margin-top: 20px; }
+        .brand-list { columns: 3; list-style: none; padding: 0; }
     </style>
 </head>
 <body>
@@ -41,33 +42,63 @@
     <div class="section premium">
         <h2>Premium Features</h2>
         <button class="premium-btn" onclick="unlockPremium()">Test Premium Features</button>
-        <a href="https://www.paypal.com/payment" class="button premium-btn">Purchase Premium ($4.99)</a>
+        <a href="https://www.paypal.me/handytoolshub/4.99" class="button premium-btn">Purchase Premium ($4.99)</a>
         
         <div id="premiumFeatures" class="hidden">
             <h3>Unlocked Features:</h3>
-            <button class="premium-btn" onclick="showGuide()">📘 Download PDF Guide</button>
-            <button class="premium-btn" onclick="showChecklist()">✅ Download Checklist</button>
-            <button class="premium-btn" onclick="showCompatibilityChecker()">🔍 Compatibility Checker</button>
+            <button class="premium-btn" onclick="downloadPDF('guide')">📘 Download PDF Guide</button>
+            <button class="premium-btn" onclick="downloadPDF('checklist')">✅ Download Checklist</button>
             
-            <div id="compatibilityChecker" class="hidden">
-                <h4>Universal Compatibility Checker</h4>
+            <div id="compatibilitySection">
+                <h3>🔍 Universal Compatibility Checker</h3>
                 <select id="brandSelect">
-                    <option>Genie</option>
-                    <option>Marantec</option>
-                    <option>Hörmann</option>
-                    <option>Somfy</option>
+                    <option value="Genie">Genie</option>
+                    <option value="Marantec">Marantec</option>
+                    <option value="Hörmann">Hörmann</option>
+                    <option value="Somfy">Somfy</option>
+                    <option value="Linear">Linear</option>
+                    <option value="Stanley">Stanley</option>
+                    <option value="Overhead Door">Overhead Door</option>
+                    <option value="Allstar">Allstar</option>
+                    <option value="MultiCode">MultiCode</option>
+                    <option value="Wayne Dalton">Wayne Dalton</option>
+                    <option value="Guardian">Guardian</option>
+                    <option value="DoorKing">DoorKing</option>
                 </select>
-                <button class="premium-btn" onclick="checkCompatibility()">Check</button>
+                <button class="premium-btn" onclick="checkCompatibility()">Check Compatibility</button>
                 <p id="checkResult"></p>
             </div>
         </div>
     </div>
 
     <script>
+        const conversionMap = {
+            // Free brands
+            'Chamberlain': { input: 390, output: 315 },
+            'LiftMaster': { input: 390, output: 315 },
+            'Craftsman': { input: 390, output: 315 },
+            // Premium brands
+            'Genie': { input: 310, output: 315 },
+            'Marantec': { input: 300, output: 318 },
+            'Hörmann': { input: 433, output: 315 },
+            'Somfy': { input: 868, output: 433 },
+            'Linear': { input: 310, output: 315 },
+            'Stanley': { input: 390, output: 315 },
+            'Overhead Door': { input: 310, output: 315 },
+            'Allstar': { input: 300, output: 318 },
+            'MultiCode': { input: 310, output: 315 },
+            'Wayne Dalton': { input: 390, output: 315 },
+            'Guardian': { input: 310, output: 315 },
+            'DoorKing': { input: 300, output: 318 }
+        };
+
         function convertFrequency() {
-            const input = document.getElementById('frequencyInput').value;
-            document.getElementById('result').textContent = 
-                `Converted frequency: ${input} MHz → 315 MHz`;
+            const input = parseFloat(document.getElementById('frequencyInput').value);
+            const result = document.getElementById('result');
+            
+            // Basic conversion logic for free version
+            const converted = input === 390 ? 315 : 390;
+            result.textContent = `Converted frequency: ${input} MHz → ${converted} MHz`;
         }
 
         function unlockPremium() {
@@ -75,22 +106,21 @@
             document.querySelector('#compatibilityChecker').classList.add('hidden');
         }
 
-        function showGuide() {
-            window.open('guide.pdf', '_blank');
-        }
-
-        function showChecklist() {
-            window.open('checklist.pdf', '_blank');
-        }
-
-        function showCompatibilityChecker() {
-            document.getElementById('compatibilityChecker').classList.remove('hidden');
+        function downloadPDF(type) {
+            const urls = {
+                'guide': 'https://raw.githubusercontent.com/handytoolshubnet/garage-converter/main/assets/garage-conversion-guide.pdf',
+                'checklist': 'https://raw.githubusercontent.com/handytoolshubnet/garage-converter/main/assets/conversion-checklist.pdf'
+            };
+            window.open(urls[type], '_blank');
         }
 
         function checkCompatibility() {
             const brand = document.getElementById('brandSelect').value;
+            const inputFreq = document.getElementById('frequencyInput').value || conversionMap[brand].input;
+            const conversion = conversionMap[brand];
+            
             document.getElementById('checkResult').textContent = 
-                `${brand} compatible with 315MHz frequency`;
+                `${brand} compatibility: ${inputFreq}MHz → ${conversion.output}MHz`;
         }
     </script>
 </body>
