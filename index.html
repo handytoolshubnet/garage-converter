@@ -571,31 +571,45 @@
             });
         }
 
-        function unlockPremiumFeatures() {
-            document.getElementById('premiumContent').classList.remove('premium-locked');
-            document.getElementById('premiumOverlay').style.display = 'none';
-            
-            // Add support email information
-            const supportInfo = document.createElement('div');
-            supportInfo.className = 'support-info';
-            supportInfo.innerHTML = `
-                <div class="tool-card">
-                    <h2>📧 Priority Support</h2>
-                    <p>As a premium member, you have access to priority support.</p>
-                    <p>Contact us: <a href="mailto:handytoolshubnet@gmail.com">handytoolshubnet@gmail.com</a></p>
-                    <p>Average response time: 24 hours</p>
-                </div>
-            `;
-            document.querySelector('.premium-tools').appendChild(supportInfo);
+function unlockPremiumFeatures() {
+    // Set premium access in localStorage
+    localStorage.setItem('premiumAccess', 'true');
+    
+    // Remove premium locks
+    document.getElementById('premiumContent').classList.remove('premium-locked');
+    document.getElementById('premiumOverlay').style.display = 'none';
+    
+    // Add support email information
+    const supportInfo = document.createElement('div');
+    supportInfo.className = 'support-info';
+    supportInfo.innerHTML = `
+        <div class="tool-card">
+            <h2>📧 Priority Support</h2>
+            <p>As a premium member, you have access to priority support.</p>
+            <p>Contact us: <a href="mailto:handytoolshubnet@gmail.com">handytoolshubnet@gmail.com</a></p>
+            <p>Average response time: 24 hours</p>
+        </div>
+    `;
+    document.querySelector('.premium-tools').appendChild(supportInfo);
 
-            // Initialize advanced checker
-            initializeAdvancedChecker();
+    // Show advanced compatibility checker
+    document.getElementById('advancedChecker').style.display = 'block';
+    
+    // Initialize advanced checker
+    initializeAdvancedChecker();
 
-            gtag('event', 'premium_features_unlocked', {
-                'event_category': 'premium',
-                'event_label': 'features_unlocked'
-            });
-        }
+    // Hide the test button after unlocking (if it exists)
+    const testButton = document.querySelector('#testButton');
+    if (testButton) {
+        testButton.style.display = 'none';
+    }
+
+    // Google Analytics tracking
+    gtag('event', 'premium_features_unlocked', {
+        'event_category': 'premium',
+        'event_label': 'features_unlocked'
+    });
+}
 
         // Initialize accordions
         document.querySelectorAll('.accordion-header').forEach(header => {
