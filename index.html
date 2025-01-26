@@ -173,7 +173,31 @@
             gap: 20px;
             margin: 20px 0;
         }
+.brands-preview {
+    margin: 30px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
 
+.brands-basic, .brands-premium {
+    margin: 15px 0;
+}
+
+.premium-brands-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.premium-note {
+    color: #666;
+    font-style: italic;
+    margin-top: 15px;
+}
         .tool-card {
             background: white;
             padding: 20px;
@@ -321,7 +345,36 @@
                 </div>
             </div>
         </div>
-
+<div class="brands-preview">
+    <h2>Supported Brands</h2>
+    <div class="brands-basic">
+        <h3>Free Version Includes:</h3>
+        <ul>
+            <li>Chamberlain</li>
+            <li>LiftMaster</li>
+            <li>Craftsman</li>
+        </ul>
+    </div>
+    <div class="brands-premium">
+        <h3>Premium Version Includes 15+ Additional Brands:</h3>
+        <ul class="premium-brands-list">
+            <li>Genie</li>
+            <li>Marantec</li>
+            <li>Hörmann</li>
+            <li>Somfy</li>
+            <li>Linear</li>
+            <li>Stanley</li>
+            <li>Overhead Door</li>
+            <li>Allstar</li>
+            <li>MultiCode</li>
+            <li>Wayne Dalton</li>
+            <li>Guardian</li>
+            <li>DoorKing</li>
+            <li>And more...</li>
+        </ul>
+        <p class="premium-note">🔓 Unlock all brands with premium access</p>
+    </div>
+</div>
         <div class="premium-box">
             <div id="premiumContent" class="premium-locked">
                 <div class="premium-tools">
@@ -342,16 +395,20 @@
                     </div>
 
                     <div class="tool-card">
-                        <h2>🔍 Compatibility Checker</h2>
-                        <select class="model-select" id="compatibilitySelect">
-                            <option value="">Select your model</option>
-                            <option value="chamberlain">Chamberlain</option>
-                            <option value="liftmaster">LiftMaster</option>
-                            <option value="craftsman">Craftsman</option>
-                            <option value="genie">Genie</option>
-                        </select>
-                        <div id="compatibilityResult"></div>
-                    </div>
+    <h2>🔍 Advanced Compatibility Checker</h2>
+    <select class="model-select" id="compatibilitySelect">
+        <option value="">Select your brand</option>
+    </select>
+    <select class="model-select" id="modelSelect" style="display: none;">
+        <option value="">Select your model</option>
+    </select>
+    <input type="number" 
+           id="freqInput" 
+           placeholder="Enter frequency (MHz)" 
+           style="display: none;"
+           class="model-select">
+    <div id="compatibilityResult" class="compatibility-result"></div>
+</div>
                 </div>
             </div>
             
@@ -365,11 +422,11 @@
                     <li>Priority Support</li>
                 </ul>
                 <p><strong>✨ Special Offer: $4.99 lifetime access</strong></p>
-                <a href="https://paypal.me/handytoolshub/4.99USD" 
-                   target="_blank" 
-                   class="paypal-button"
-                   onclick="handlePaymentInitiated()">
-                    Pay with PayPal
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=handytoolshubnet@gmail.com&currency_code=USD&amount=4.99&item_name=Garage Door Converter Premium Access"
+   target="_blank" 
+   class="paypal-button"
+   onclick="handlePaymentInitiated()">
+    Pay with PayPal ($4.99 USD)
                 </a>
             </div>
         </div>
@@ -487,6 +544,10 @@
         }
 
         function checkPayPalMeStatus() {
+            // Universal Compatibility Data
+const universalCompatibility = {
+    // [The entire universalCompatibility object I provided earlier goes here]
+};
             if (localStorage.getItem('paymentInitiated') === 'true') {
                 // Assume payment completed after 3 minutes
                 localStorage.setItem('premiumAccess', 'true');
@@ -542,6 +603,67 @@
         if (localStorage.getItem('premiumAccess') === 'true') {
             unlockPremiumFeatures();
         }
+            function initializeAdvancedChecker() {
+    const brandSelect = document.getElementById('compatibilitySelect');
+    const modelSelect = document.getElementById('modelSelect');
+    const freqInput = document.getElementById('freqInput');
+    const result = document.getElementById('compatibilityResult');
+
+    // Populate brands
+    brandSelect.innerHTML = '<option value="">Select your brand</option>' +
+        Object.keys(universalCompatibility).map(brand => 
+            `<option value="${brand}">${brand.charAt(0).toUpperCase() + brand.slice(1)}</option>`
+        ).join('');
+
+    brandSelect.addEventListener('change', function() {
+        const brand = this.value;
+        if (brand) {
+            const brandData = universalCompatibility[brand];
+            modelSelect.style.display = 'block';
+            modelSelect.innerHTML = '<option value="">Select your model</option>' +
+                brandData.models.map(model => 
+                    `<option value="${model}">${model}</option>`
+                ).join('');
+        } else {
+            modelSelect.style.display = 'none';
+            freqInput.style.display = 'none';
+            result.innerHTML = '';
+        }
+    });
+
+    modelSelect.addEventListener('change', function() {
+        if (this.value) {
+            freqInput.style.display = 'block';
+        } else {
+            freqInput.style.display = 'none';
+            result.innerHTML = '';
+        }
+    });
+
+    freqInput.addEventListener('change', function() {
+        const brand = brandSelect.value;
+        const freq = parseFloat(this.value);
+        if (brand && freq) {
+            const brandData = universalCompatibility[brand];
+            const converted = brandData.conversion(freq);
+            result.innerHTML = `
+                <h4>Results:</h4>
+                <p>Original Frequency: ${freq} MHz</p>
+                <p>Converted Frequency: ${converted} MHz</p>
+                <p>Notes: ${brandData.notes}</p>
+                <p>Supported Frequencies: ${brandData.frequencies.join(', ')} MHz</p>
+            `;
+        }
+    });
+}
+
+// Add this to your unlockPremiumFeatures function
+function unlockPremiumFeatures() {
+    // ... existing code ...
+    
+    // Initialize advanced checker
+    initializeAdvancedChecker();
+}
     </script>
 </body>
 </html>
