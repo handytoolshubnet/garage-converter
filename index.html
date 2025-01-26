@@ -26,10 +26,142 @@
             color: #333;
         }
 
+        /* Tool card styles */
+        .tool-card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         /* Converter styles */
         .converter-section {
             margin: 20px 0;
             padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Table styles */
+        .compatibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .compatibility-table th,
+        .compatibility-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .compatibility-table th {
+            background-color: #f8f9fa;
+        }
+
+        /* Accordion styles */
+        .accordion {
+            margin-bottom: 10px;
+        }
+
+        .accordion-header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .accordion-header:hover {
+            background-color: #e9ecef;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .accordion-content.active {
+            display: block;
+        }
+
+        /* Premium styles */
+        .premium-locked {
+            position: relative;
+            filter: blur(0);
+            transition: filter 0.3s;
+        }
+
+        .premium-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .premium-btn {
+            background-color: #28a745;
+            padding: 15px 30px;
+            font-size: 1.1em;
+        }
+
+        .premium-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Result styles */
+        #result, #advCompatibilityResult {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+
+        /* Download button styles */
+        .download-btn {
+            background-color: #17a2b8;
+            margin: 10px 0;
+        }
+
+        .download-btn:hover {
+            background-color: #138496;
+        }
+    </style>
+</head>
+
 <body>
     <div class="container">
         <h1>Garage Door Frequency Converter</h1>
@@ -39,12 +171,9 @@
         <div class="tool-card">
             <h2>How it works:</h2>
             <p>Enter your remote's current frequency (found on the remote's back or in the manual) to get the compatible conversion frequency.</p>
-        </div>
-
-        <div class="tool-card">
-            <h2>Frequency Converter</h2>
+        
             <div class="converter-section">
-                <input type="number" id="frequencyInput" placeholder="Enter frequency (MHz)">
+                <input type="number" id="frequencyInput" placeholder="Enter frequency (MHz)" step="0.1">
                 <button onclick="convertFrequency()">Convert</button>
                 <div id="result"></div>
             </div>
@@ -59,6 +188,7 @@
                         <th>Brand</th>
                         <th>Models</th>
                         <th>Original Frequency (MHz)</th>
+                        <th>Converted Frequency (MHz)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,16 +196,19 @@
                         <td>Chamberlain</td>
                         <td>953CB, 956CB, 956D, 953D</td>
                         <td>390</td>
+                        <td>315</td>
                     </tr>
                     <tr>
                         <td>LiftMaster</td>
                         <td>371LM, 373LM, 375LM, 375UT</td>
                         <td>390</td>
+                        <td>315</td>
                     </tr>
                     <tr>
                         <td>Craftsman</td>
                         <td>139.53753, 139.53773, 139.53879</td>
                         <td>390</td>
+                        <td>315</td>
                     </tr>
                 </tbody>
             </table>
@@ -87,38 +220,49 @@
             <div class="free-version">
                 <h3>Free Version Includes:</h3>
                 <ul>
-                    <li>Chamberlain</li>
-                    <li>LiftMaster</li>
-                    <li>Craftsman</li>
+                    <li>✓ Chamberlain</li>
+                    <li>✓ LiftMaster</li>
+                    <li>✓ Craftsman</li>
                 </ul>
             </div>
 
             <div class="premium-brands">
                 <h3>Premium Version Includes 15+ Additional Brands:</h3>
-                <ul>
-                    <li>Genie</li>
-                    <li>Marantec</li>
-                    <li>Hörmann</li>
-                    <li>Somfy</li>
-                    <li>Linear</li>
-                    <li>Stanley</li>
-                    <li>Overhead Door</li>
-                    <li>Allstar</li>
-                    <li>MultiCode</li>
-                    <li>Wayne Dalton</li>
-                    <li>Guardian</li>
-                    <li>DoorKing</li>
-                    <li>And more...</li>
-                </ul>
-                <p>🔓 Unlock all brands with premium access</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">
+                    <ul>
+                        <li>⭐ Genie</li>
+                        <li>⭐ Marantec</li>
+                        <li>⭐ Hörmann</li>
+                        <li>⭐ Somfy</li>
+                        <li>⭐ Linear</li>
+                    </ul>
+                    <ul>
+                        <li>⭐ Stanley</li>
+                        <li>⭐ Overhead Door</li>
+                        <li>⭐ Allstar</li>
+                        <li>⭐ MultiCode</li>
+                        <li>⭐ Wayne Dalton</li>
+                    </ul>
+                    <ul>
+                        <li>⭐ Guardian</li>
+                        <li>⭐ DoorKing</li>
+                        <li>⭐ Moore-O-Matic</li>
+                        <li>⭐ Pulsar</li>
+                        <li>⭐ And more...</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 20px; font-weight: bold; color: #28a745;">
+                    🔓 Unlock all brands with premium access
+                </p>
             </div>
         </div>
+
 <!-- FAQ Section -->
         <div class="tool-card">
             <h2>Frequently Asked Questions</h2>
             
             <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)">Common Questions</div>
+                <div class="accordion-header">Common Questions</div>
                 <div class="accordion-content">
                     <h4>Q: How do I find my remote's frequency?</h4>
                     <p>A: Look for a sticker on the back of your remote or check your user manual. Common frequencies are 300, 315, 318, and 390 MHz.</p>
@@ -135,7 +279,7 @@
             </div>
 
             <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)">Troubleshooting Tips</div>
+                <div class="accordion-header">Troubleshooting Tips</div>
                 <div class="accordion-content">
                     <h4>Remote not responding after conversion:</h4>
                     <ul>
@@ -200,66 +344,113 @@
                 <h2>Premium Features - One-Time Purchase</h2>
                 <p>Unlock all advanced features forever:</p>
                 <ul>
-                    <li>Step-by-Step PDF Guide</li>
-                    <li>Printable Can't Fail Checklist</li>
-                    <li>Universal Compatibility Checker</li>
-                    <li>Priority Support</li>
+                    <li>✓ Step-by-Step PDF Guide</li>
+                    <li>✓ Printable Can't Fail Checklist</li>
+                    <li>✓ Universal Compatibility Checker</li>
+                    <li>✓ Support for 15+ Additional Brands</li>
+                    <li>✓ Priority Support</li>
                 </ul>
-                <p>✨ Special Offer: $4.99 lifetime access</p>
-                <button onclick="handlePaymentInitiated(event)" class="premium-btn">
+                <p style="font-size: 1.2em; color: #28a745;">✨ Special Offer: $4.99 lifetime access</p>
+                <button onclick="handlePaymentInitiated()" class="premium-btn">
                     Unlock Premium Features
                 </button>
             </div>
         </div>
     </div>
-<!-- Additional Scripts -->
-    <script>
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check premium status
-            if (localStorage.getItem('premiumAccess') === 'true') {
-                unlockPremiumFeatures();
+<script>
+        // Data structure for universal compatibility
+        const universalCompatibility = {
+            chamberlain: {
+                models: ['953CB', '956CB', '956D', '953D'],
+                frequencies: [390, 315],
+                conversion: (freq) => freq === 390 ? 315 : 390,
+                notes: 'Compatible with most models from 1995-2015'
+            },
+            liftmaster: {
+                models: ['371LM', '373LM', '375LM', '375UT'],
+                frequencies: [390, 315],
+                conversion: (freq) => freq === 390 ? 315 : 390,
+                notes: 'Compatible with security+ models'
+            },
+            craftsman: {
+                models: ['139.53753', '139.53773', '139.53879'],
+                frequencies: [390, 315],
+                conversion: (freq) => freq === 390 ? 315 : 390,
+                notes: 'Compatible with most Craftsman models'
+            }
+        };
+
+        // Basic frequency converter function
+        function convertFrequency() {
+            const input = document.getElementById('frequencyInput');
+            const result = document.getElementById('result');
+            const frequency = parseFloat(input.value);
+
+            if (!frequency) {
+                result.innerHTML = '<p style="color: red;">Please enter a valid frequency.</p>';
+                return;
             }
 
-            // Initialize accordions
-            initializeAccordions();
-
-            // Add test button for development
-            addTestButton();
-
-            // Initialize advanced checker if premium
-            if (!document.getElementById('premiumContent').classList.contains('premium-locked')) {
-                initializeAdvancedChecker();
+            if (frequency !== 315 && frequency !== 390) {
+                result.innerHTML = '<p style="color: red;">Currently supporting only 315 MHz and 390 MHz conversions.<br>Please enter either 315 or 390.</p>';
+                return;
             }
-        });
 
-        // Accordion functionality
-        function toggleAccordion(element) {
-            const content = element.nextElementSibling;
-            content.classList.toggle('active');
+            const converted = frequency === 390 ? 315 : 390;
+            result.innerHTML = `
+                <p style="color: #28a745;">✓ Conversion Complete</p>
+                <p><strong>Original Frequency:</strong> ${frequency} MHz</p>
+                <p><strong>Converted Frequency:</strong> ${converted} MHz</p>
+                <p style="color: #28a745;">✓ Ready for programming</p>
+            `;
         }
 
+        // Accordion functionality
         function initializeAccordions() {
             document.querySelectorAll('.accordion-header').forEach(header => {
                 header.addEventListener('click', function() {
+                    // Close all other accordions
+                    document.querySelectorAll('.accordion-content').forEach(content => {
+                        if (content !== this.nextElementSibling) {
+                            content.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current accordion
                     this.nextElementSibling.classList.toggle('active');
                 });
             });
         }
 
-        // Advanced checker functionality
-        function initializeAdvancedChecker() {
-            const brandSelect = document.getElementById('brandSelect');
-            const modelSelect = document.getElementById('modelSelect');
-            const freqInput = document.getElementById('advFreqInput');
-
-            // Populate brand select
-            brandSelect.innerHTML = '<option value="">Select your brand</option>' +
-                Object.keys(universalCompatibility).map(brand => 
-                    `<option value="${brand}">${brand.charAt(0).toUpperCase() + brand.slice(1)}</option>`
-                ).join('');
+        // Premium features handling
+        function unlockPremiumFeatures() {
+            const premiumContent = document.getElementById('premiumContent');
+            const premiumOverlay = document.getElementById('premiumOverlay');
+            
+            premiumContent.classList.remove('premium-locked');
+            if (premiumOverlay) {
+                premiumOverlay.style.display = 'none';
+            }
+            
+            localStorage.setItem('premiumAccess', 'true');
+            initializeAdvancedChecker();
         }
 
+        function handlePaymentInitiated() {
+            // This is a demo function - in real implementation, would connect to payment processor
+            alert('This is a demo. In a real implementation, this would connect to a payment processor.');
+            unlockPremiumFeatures();
+        }
+
+        function handleDownload(type) {
+            if (type === 'guide') {
+                alert('Downloading comprehensive PDF guide...');
+            } else if (type === 'checklist') {
+                alert('Downloading printable checklist...');
+            }
+        }
+
+        // Advanced checker functionality
         function handleBrandSelect() {
             const brandSelect = document.getElementById('brandSelect');
             const modelSelect = document.getElementById('modelSelect');
@@ -267,11 +458,10 @@
             const result = document.getElementById('advCompatibilityResult');
 
             const brand = brandSelect.value;
-            if (brand) {
-                const brandData = universalCompatibility[brand];
+            if (brand && universalCompatibility[brand]) {
                 modelSelect.style.display = 'block';
                 modelSelect.innerHTML = '<option value="">Select your model</option>' +
-                    brandData.models.map(model => 
+                    universalCompatibility[brand].models.map(model => 
                         `<option value="${model}">${model}</option>`
                     ).join('');
             } else {
@@ -282,14 +472,13 @@
         }
 
         function handleModelSelect() {
-            const modelSelect = document.getElementById('modelSelect');
             const freqInput = document.getElementById('advFreqInput');
+            const modelSelect = document.getElementById('modelSelect');
             
             if (modelSelect.value) {
                 freqInput.style.display = 'block';
             } else {
                 freqInput.style.display = 'none';
-                document.getElementById('advCompatibilityResult').innerHTML = '';
             }
         }
 
@@ -303,40 +492,41 @@
 
             if (brand && freq) {
                 const brandData = universalCompatibility[brand];
-                const converted = brandData.conversion(freq);
-                result.innerHTML = `
-                    <h4>Results:</h4>
-                    <p>Original Frequency: ${freq} MHz</p>
-                    <p>Converted Frequency: ${converted} MHz</p>
-                    <p>Notes: ${brandData.notes}</p>
-                    <p>Supported Frequencies: ${brandData.frequencies.join(', ')} MHz</p>
-                `;
+                if (brandData.frequencies.includes(freq)) {
+                    const converted = brandData.conversion(freq);
+                    result.innerHTML = `
+                        <div style="background-color: #d4edda; color: #155724; padding: 15px; border-radius: 4px; margin-top: 15px;">
+                            <h4>✓ Compatible Frequency Found</h4>
+                            <p><strong>Original Frequency:</strong> ${freq} MHz</p>
+                            <p><strong>Converted Frequency:</strong> ${converted} MHz</p>
+                            <p><strong>Notes:</strong> ${brandData.notes}</p>
+                        </div>
+                    `;
+                } else {
+                    result.innerHTML = `
+                        <div style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 4px; margin-top: 15px;">
+                            <p>⚠️ Unsupported frequency for this brand.</p>
+                            <p>Supported frequencies: ${brandData.frequencies.join(', ')} MHz</p>
+                        </div>
+                    `;
+                }
             }
         }
 
-        function handleDownload(type) {
-            alert(`Download started for ${type}. This is a demo feature.`);
-        }
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAccordions();
+            
+            // Check premium status
+            if (localStorage.getItem('premiumAccess') === 'true') {
+                unlockPremiumFeatures();
+            }
 
-        function addTestButton() {
-            const testButton = document.createElement('button');
-            testButton.id = 'testButton';
-            testButton.innerHTML = 'Test Premium Features';
-            testButton.style.cssText = `
-                position: fixed;
-                bottom: 10px;
-                right: 10px;
-                z-index: 9999;
-                padding: 10px;
-                background-color: #007bff;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            `;
-            testButton.addEventListener('click', unlockPremiumFeatures);
-            document.body.appendChild(testButton);
-        }
+            // Initialize advanced checker if premium
+            if (!document.getElementById('premiumContent').classList.contains('premium-locked')) {
+                initializeAdvancedChecker();
+            }
+        });
     </script>
 </body>
 </html>
